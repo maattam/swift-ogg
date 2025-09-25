@@ -77,9 +77,11 @@ public class OGGEncoder {
         }
 
         // initialize opus encoder
-        encoder = opus_encoder_create(opusRate, pcmChannels, application.rawValue, &status)
+        let encoder = opus_encoder_create(opusRate, pcmChannels, application.rawValue, &status)
         guard let error = OpusError(rawValue: status) else { throw OpusError.internalError }
-        guard error == .okay else { throw error }
+        guard let encoder, error == .okay else { throw error }
+
+        self.encoder = encoder
 
         // add opus headers to ogg stream
         try addOpusHeader(channels: UInt8(pcmChannels), rate: UInt32(pcmRate))
