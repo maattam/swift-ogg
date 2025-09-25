@@ -61,7 +61,11 @@ public class OGGDecoder {
 
         // status to catch errors when creating decoder
         var status = Int32(0)
-        decoder = opus_decoder_create(sampleRate, numChannels, &status)
+        let decoder = opus_decoder_create(sampleRate, numChannels, &status)
+        guard let error = OpusError(rawValue: status) else { throw OpusError.internalError }
+        guard let decoder, error == .okay else { throw error }
+
+        self.decoder = decoder
 
         // initialize ogg sync state
         ogg_sync_init(&syncState)
