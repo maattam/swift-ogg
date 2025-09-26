@@ -21,8 +21,8 @@ import Copustools
 
 public class OGGDecoder {
 
-    var sampleRate: Int32 = 48000       // sample rate for decoding. default value by Opus is 48000
-    var numChannels: Int32 = 1          // number of channels
+    public var sampleRate: Int32 = 48000       // sample rate for decoding. default value by Opus is 48000
+    public var numChannels: Int32 = 1          // number of channels
     public var pcmData = Data()         // decoded pcm data
     
     // swiftlint:disable:next type_name
